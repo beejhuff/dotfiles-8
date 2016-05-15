@@ -8,3 +8,6 @@ export PATH=/usr/local/bin:$PATH
 
 # GO
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
+
+# PHP Composer binaries
+export PATH="./bin:./vendor/bin:$PATH"
