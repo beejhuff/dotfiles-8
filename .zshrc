@@ -35,3 +35,4 @@ unsetopt correct
 # run fortune on new terminal :)
 fortune
 
+eval "$(thefuck --alias ffs)"

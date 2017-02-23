@@ -19,7 +19,7 @@ mkdir -p ~/.dotfiles_backup
 # ensure ~/.gitshots exists
 mkdir -p ~/.gitshots
 
-bot "Hi. I'm going to make your OSX system better. But first, I need to configure this project based on your info so you don't check in files to github as Adam Eivy from here on out :)"
+bot "Hi. I'm going to make your OSX system better. But first, I need to configure this project based on your info so you don't check in files to github"
 
 fullname=`osascript -e "long user name of (system info)"`
 
@@ -67,7 +67,7 @@ if [[ $response =~ ^(no|n|N) ]];then
   fi
 fi
 
-grep 'user = atomantic' .gitconfig
+grep "user = $DEFAULT_GITHUBUSER" .gitconfig
 if [[ $? = 0 ]]; then
     read -r -p "What is your github.com username? [$DEFAULT_GITHUBUSER]" githubuser
 fi
@@ -95,13 +95,6 @@ else
   sed -i 's/'$DEFAULT_USERNAME'/'$(whoami)'/g' .zshrc;ok
 fi
 
-# read -r -p "OK? [Y/n] " response
-#  if [[ ! $response =~ ^(yes|y|Y| ) ]];then
-#     exit 1
-#  fi
-
-# bot "awesome. let's roll..."
-
 echo $0 | grep zsh > /dev/null 2>&1 | true
 if [[ ${PIPESTATUS[0]} != 0 ]]; then
   running "changing your login shell to zsh"
@@ -114,12 +107,10 @@ pushd ~ > /dev/null 2>&1
 
 bot "creating symlinks for project dotfiles..."
 
-symlinkifne .crontab
 symlinkifne .gemrc
 symlinkifne .gitconfig
 symlinkifne .gitignore
 symlinkifne .profile
-symlinkifne .screenrc
 symlinkifne .shellaliases
 symlinkifne .shellfn
 symlinkifne .shellpaths
@@ -131,6 +122,29 @@ symlinkifne .zlogout
 symlinkifne .zprofile
 symlinkifne .zshenv
 symlinkifne .zshrc
+
+SBT_PLUGINS_DIR="$HOME/.sbt/0.13/plugins"
+if [ ! -d "$SBT_PLUGINS_DIR" ]; then
+  mkdir -p "$SBT_PLUGINS_DIR"
+fi
+
+if [ ! -L "$SBT_PLUGINS_DIR/plugins.sbt"]; then
+  ln -s ~/.dotfiles/.sbt/0.13/plugins/plugins.sbt "$SBT_PLUGINS_DIR/plugins.sbt"
+fi
+
+bot "Create iterm profile symlink"
+
+ITERM_PROFILE_PATH="~/Library/Application\ Support/iTerm2/DynamicProfiles/iterm_profile"
+if [[ -L "$ITERM_PROFILE_PATH" ]]; then
+  # it's already a simlink (could have come from this project)
+  echo -en '\tsimlink exists, skipped\t';ok
+  return
+else
+  ln -s ~/.dotfiles/iterm_profile "$ITERM_PROFILE_PATH"
+fi
+
+bot "set iterm profile"
+echo -e "\033]50;SetProfile=ShaneProfile\a"
 
 popd > /dev/null 2>&1
 

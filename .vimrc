@@ -6,7 +6,7 @@ if has('gui_running')
 else
     set background=dark
 endif
-colorscheme solarized
+"colorscheme solarized
 " syntax on " syntax highlighting on
 syntax enable
 let g:solarized_termtrans = 1

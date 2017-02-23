@@ -15,22 +15,6 @@ if sudo grep -q "# %wheel\tALL=(ALL) NOPASSWD: ALL" "/etc/sudoers"; then
   # Keep-alive: update existing sudo time stamp until the script has finished
   while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-  bot "Do you want me to setup this machine to allow you to run sudo without a password?\nPlease read here to see what I am doing:\nhttp://wiki.summercode.com/sudo_without_a_password_in_mac_os_x \n"
-
-  read -r -p "Make sudo passwordless? [y|N] " response
-
-  if [[ $response =~ (yes|y|Y) ]];then
-      sed --version 2>&1 > /dev/null
-      sudo sed -i '' 's/^#\s*\(%wheel\s\+ALL=(ALL)\s\+NOPASSWD:\s\+ALL\)/\1/' /etc/sudoers
-      if [[ $? == 0 ]];then
-          sudo sed -i 's/^#\s*\(%wheel\s\+ALL=(ALL)\s\+NOPASSWD:\s\+ALL\)/\1/' /etc/sudoers
-      fi
-      sudo dscl . append /Groups/wheel GroupMembership $(whoami)
-      bot "You can now run sudo commands without password!"
-  fi
-fi
-ok
-
 #####
 # install homebrew
 #####
@@ -76,7 +60,6 @@ fi
 
 bot "installing homebrew command-line tools"
 
-
 # Install GNU core utilities (those that come with OS X are outdated)
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
 require_brew coreutils
@@ -84,63 +67,26 @@ require_brew coreutils
 require_brew moreutils
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed
 require_brew findutils
-
-# Install Bash 4
-# Note: don’t forget to add `/usr/local/bin/bash` to `/etc/shells` before running `chsh`.
-#install bash
-#install bash-completion
-
-# Install RingoJS and Narwhal
-# Note that the order in which these are installed is important; see http://git.io/brew-narwhal-ringo.
-#install ringojs
-#install narwhal
-
-# Install other useful binaries
-require_brew ack
-# Beanstalk http://kr.github.io/beanstalkd/
-#require_brew beanstalkd
-# ln -sfv /usr/local/opt/beanstalk/*.plist ~/Library/LaunchAgents
-# launchctl load ~/Library/LaunchAgents/homebrew.mxcl.beanstalk.plist
-
-# docker setup:
-# note, instead, use https://github.com/atomantic/generator-dockerize for dev tooling
-
-# dos2unix converts windows newlines to unix newlines
 require_brew dos2unix
-# fortune command--I source this as a better motd :)
 require_brew fortune
 require_brew gawk
-# http://www.lcdf.org/gifsicle/ (because I'm a gif junky)
-require_brew gifsicle
-# skip those GUI clients, git command-line all the way
 require_brew git
-# no longer recommending git-flow:
-# require_brew git-flow
-# why is everyone still not using GPG?
 require_brew gnupg
 # Install GNU `sed`, overwriting the built-in `sed`
 # so we can do "sed -i 's/foo/bar/' file" instead of "sed -i '' 's/foo/bar/' file"
 require_brew gnu-sed --default-names
-#require_brew go
 # better, more recent grep
 require_brew homebrew/dupes/grep
-require_brew imagemagick
-require_brew imagesnap
+require_brew httpie
 # jq is a JSON grep
 require_brew jq
-# http://maven.apache.org/
-# require_brew maven
+require_brew maven
 require_brew nmap
-# require_brew node
 require_brew nvm
-require_brew openconnect
 require_brew ruby
-# better/more recent version of screen
-require_brew homebrew/dupes/screen
-require_brew tmux
-require_brew reattach-to-user-namespace
+require_brew sbt
+require_brew thefuck
 require_brew tree
-require_brew ttyrec
 # better, more recent vim
 require_brew vim --override-system-vi
 require_brew watch
@@ -159,32 +105,7 @@ require_nvm 4.4.4
 bot "NPM Globals..."
 ###############################################################################
 
-require_npm antic
-require_npm buzzphrase
-require_npm bower
-require_npm bower-check-updates
-require_npm esformatter
-require_npm eslint
-require_npm instant-markdown-d
-require_npm npm-check
-# http://ionicframework.com/
-# require_npm cordova
-# require_npm ionic
-require_npm yo
-# https://github.com/markdalgleish/bespoke.js
-# require_npm generator-bespoke
-require_npm generator-dockerize
-# require_npm grunt
-require_npm gulp
-# NOTE: now using PM2 and forever in docker containers (not in host)
-# http://devo.ps/blog/goodbye-node-forever-hello-pm2/
-# require_npm pm2
-require_npm prettyjson
-# require_npm supervisor
-# https://github.com/sindresorhus/trash
-require_npm trash
-# https://github.com/MrRio/vtop
-require_npm vtop
+
 
 ###############################################################################
 bot "Ruby Gems..."
@@ -201,55 +122,13 @@ require_gem git-up
 bot "installing GUI tools via homebrew casks..."
 brew tap caskroom/versions > /dev/null 2>&1
 
-# cloud storage
-#require_cask amazon-cloud-drive
-require_cask box-sync
-#require_cask dropbox
-#require_cask evernote
-
-# communication
-#require_cask adium
 require_cask slack
-
-# tools
-#require_cask comicbooklover
 require_cask diffmerge
-#require_cask flash-player
 require_cask gpgtools
-# require_cask ireadfast
 require_cask iterm2
-#require_cask macvim
-require_cask sizeup
-#require_cask simple-comic
-#require_cask sketchup
-
-# require_cask atom
-# require_apm linter
-# require_apm linter-eslint
-# require_apm atom-beautify
-
-# require_cask the-unarchiver
-#require_cask transmission
-# require_cask vlc
 require_cask xquartz
+require_cask docker
 
-# development browsers
-# require_cask breach
-# require_cask firefox
-#require_cask firefox-aurora
-require_cask google-chrome
-# require_cask torbrowser
-
-# virtal machines
-# require_cask virtualbox
-# chef-dk, berkshelf, etc
-#require_cask chefdk
-# vagrant for running dev environments using docker images
-#require_cask vagrant # # | grep Caskroom | sed "s/.*'\(.*\)'.*/open \1\/Vagrant.pkg/g" | sh
-
-
-
-# bot "Alright, cleaning up homebrew cache..."
 # Remove outdated versions from the cellar
 brew cleanup > /dev/null 2>&1
 bot "All clean"
@@ -276,80 +155,10 @@ sudo touch /Private/var/vm/sleepimage;ok
 running "…and make sure it can’t be rewritten"
 sudo chflags uchg /Private/var/vm/sleepimage;ok
 
-#running "Disable the sudden motion sensor as it’s not useful for SSDs"
-# sudo pmset -a sms 0;ok
-
-################################################
-# Optional / Experimental                      #
-################################################
-
-# running "Set computer name (as done via System Preferences → Sharing)"
-# sudo scutil --set ComputerName "antic"
-# sudo scutil --set HostName "antic"
-# sudo scutil --set LocalHostName "antic"
-# sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "antic"
-
-# running "Disable smooth scrolling"
-# (Uncomment if you’re on an older Mac that messes up the animation)
-# defaults write NSGlobalDomain NSScrollAnimationEnabled -bool false;ok
-
-# running "Disable Resume system-wide"
-# defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false;ok
-# TODO: might want to enable this again and set specific apps that this works great for
-# e.g. defaults write com.microsoft.word NSQuitAlwaysKeepsWindows -bool true
-
-# running "Fix for the ancient UTF-8 bug in QuickLook (http://mths.be/bbo)""
-# # Commented out, as this is known to cause problems in various Adobe apps :(
-# # See https://github.com/mathiasbynens/dotfiles/issues/237
-# echo "0x08000100:0" > ~/.CFUserTextEncoding;ok
-
-# running "Stop iTunes from responding to the keyboard media keys"
-# launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null;ok
-
-# running "Show icons for hard drives, servers, and removable media on the desktop"
-# defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-# defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
-# defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
-# defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true;ok
-
-# running "Enable the MacBook Air SuperDrive on any Mac"
-# sudo nvram boot-args="mbasd=1";ok
-
-# running "Remove Dropbox’s green checkmark icons in Finder"
-# file=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
-# [ -e "${file}" ] && mv -f "${file}" "${file}.bak";ok
-
-# running "Wipe all (default) app icons from the Dock"
-# # This is only really useful when setting up a new Mac, or if you don’t use
-# # the Dock to launch apps.
-# defaults write com.apple.dock persistent-apps -array "";ok
-
-#running "Enable the 2D Dock"
-#defaults write com.apple.dock no-glass -bool true;ok
-
-#running "Disable the Launchpad gesture (pinch with thumb and three fingers)"
-#defaults write com.apple.dock showLaunchpadGestureEnabled -int 0;ok
-
-#running "Add a spacer to the left side of the Dock (where the applications are)"
-#defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}';ok
-#running "Add a spacer to the right side of the Dock (where the Trash is)"
-#defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}';ok
-
-running "Set a custom wallpaper image"
-# `DefaultDesktop.jpg` is already a symlink, and
-# all wallpapers are in `/Library/Desktop Pictures/`. The default is `Wave.jpg`.
-rm -rf ~/Library/Application Support/Dock/desktoppicture.db
-sudo rm -f /System/Library/CoreServices/DefaultDesktop.jpg
-sudo rm -f /Library/Desktop\ Pictures/El\ Capitan.jpg
-sudo cp ./img/wallpaper.jpg /System/Library/CoreServices/DefaultDesktop.jpg;
-sudo cp ./img/wallpaper.jpg /Library/Desktop\ Pictures/El\ Capitan.jpg;ok
-
 
 ################################################
 bot "Standard System Changes"
 ################################################
-running "always boot in verbose mode (not OSX GUI mode)"
-sudo nvram boot-args="-v";ok
 
 running "allow 'locate' command"
 sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist > /dev/null 2>&1;ok
@@ -360,32 +169,17 @@ sudo pmset -a standbydelay 86400;ok
 running "Disable the sound effects on boot"
 sudo nvram SystemAudioVolume=" ";ok
 
-running "Menu bar: disable transparency"
-defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false;ok
+#running "Stop iTunes from responding to the keyboard media keys"
+#launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null;ok
 
-running "Menu bar: hide the Time Machine, Volume, User, and Bluetooth icons"
-for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
-  defaults write "${domain}" dontAutoLoad -array \
-    "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
-    "/System/Library/CoreServices/Menu Extras/Volume.menu" \
-    "/System/Library/CoreServices/Menu Extras/User.menu"
-done;
-defaults write com.apple.systemuiserver menuExtras -array \
-  "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
-  "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-  "/System/Library/CoreServices/Menu Extras/Battery.menu" \
-  "/System/Library/CoreServices/Menu Extras/Clock.menu"
-ok
+#running "Menu bar: disable transparency"
+#defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false;ok
 
 running "Set highlight color to green"
 defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600";ok
 
 running "Set sidebar icon size to medium"
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2;ok
-
-running "Always show scrollbars"
-defaults write NSGlobalDomain AppleShowScrollBars -string "Always";ok
-# Possible values: `WhenScrolling`, `Automatic` and `Always`
 
 running "Increase window resize speed for Cocoa applications"
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001;ok
@@ -417,9 +211,6 @@ defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true;ok
 running "Disable automatic termination of inactive apps"
 defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true;ok
 
-running "Disable the crash reporter"
-defaults write com.apple.CrashReporter DialogType -string "none";ok
-
 running "Set Help Viewer windows to non-floating mode"
 defaults write com.apple.helpviewer DevMode -bool true;ok
 
@@ -428,15 +219,6 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 
 running "Restart automatically if the computer freezes"
 sudo systemsetup -setrestartfreeze on;ok
-
-running "Never go into computer sleep mode"
-sudo systemsetup -setcomputersleep Off > /dev/null;ok
-
-running "Check for software updates daily, not just once per week"
-defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1;ok
-
-running "Disable Notification Center and remove the menu bar icon"
-launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist > /dev/null 2>&1;ok
 
 running "Disable smart quotes as they’re annoying when typing code"
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false;ok
@@ -453,12 +235,6 @@ running "Trackpad: enable tap to click for this user and for the login screen"
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1;ok
-
-running "Trackpad: map bottom right corner to right-click"
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true;ok
 
 running "Disable “natural” (Lion-style) scrolling"
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false;ok
@@ -480,12 +256,6 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false;ok
 
 running "Set a blazingly fast keyboard repeat rate"
 defaults write NSGlobalDomain KeyRepeat -int 0;
-
-running "Set language and text formats (english/US)"
-defaults write NSGlobalDomain AppleLanguages -array "en"
-defaults write NSGlobalDomain AppleLocale -string "en_US@currency=USD"
-defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
-defaults write NSGlobalDomain AppleMetricUnits -bool true;ok
 
 running "Disable auto-correct"
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false;ok
@@ -530,9 +300,6 @@ defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Desk
 
 running "Show hidden files by default"
 defaults write com.apple.finder AppleShowAllFiles -bool true;ok
-
-running "Show all filename extensions"
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true;ok
 
 running "Show status bar"
 defaults write com.apple.finder ShowStatusBar -bool true;ok
@@ -586,7 +353,6 @@ defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true;ok
 
 running "Show the ~/Library folder"
 chflags nohidden ~/Library;ok
-
 
 running "Expand the following File Info panes: “General”, “Open with”, and “Sharing & Permissions”"
 defaults write com.apple.finder FXInfoPanesExpanded -dict \

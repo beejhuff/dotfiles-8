@@ -7,7 +7,15 @@ export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 
 # GO
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
+export GOROOT=/usr/local/opt/go/libexec
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 # PHP Composer binaries
 export PATH="./bin:./vendor/bin:$PATH"
+
+export PATH="/usr/local/OPT/activator/bin:$PATH"
+
+export PATH="$HOME/apps/maven/apache-maven-3.2.5/bin:$PATH"
+
+export PATH="$HOME/instantclient_12_1:$PATH"
