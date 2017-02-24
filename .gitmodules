@@ -8,5 +8,5 @@
 	path = .vim/bundle/Vundle.vim
 	url = git://github.com/VundleVim/Vundle.vim.git
 [submodule "oh-my-fish"]
-  path = oh-my-fish
-  url = git://github.com/oh-my-fish/oh-my-fish  
+	path = oh-my-fish
+	url = https://github.com/oh-my-fish/oh-my-fish.git
