@@ -95,40 +95,24 @@ else
   sed -i 's/'$DEFAULT_USERNAME'/'$(whoami)'/g' .zshrc;ok
 fi
 
-echo $0 | grep zsh > /dev/null 2>&1 | true
-if [[ ${PIPESTATUS[0]} != 0 ]]; then
-  running "changing your login shell to zsh"
-  chsh -s $(which zsh);ok
-else
-  bot "looks like you are already using zsh. woot!"
-fi
-
+bot "make sure we're in the home directory"
 pushd ~ > /dev/null 2>&1
 
-bot "creating symlinks for project dotfiles..."
+bot "creating symlinks for shell agnostic project dotfiles..."
 
 symlinkifne .gemrc
 symlinkifne .gitconfig
 symlinkifne .gitignore
-symlinkifne .profile
-symlinkifne .shellaliases
-symlinkifne .shellfn
-symlinkifne .shellpaths
-symlinkifne .shellvars
 symlinkifne .tmux.conf
 symlinkifne .vim
 symlinkifne .vimrc
-symlinkifne .zlogout
-symlinkifne .zprofile
-symlinkifne .zshenv
-symlinkifne .zshrc
 
 SBT_PLUGINS_DIR="$HOME/.sbt/0.13/plugins"
-if [ ! -d "$SBT_PLUGINS_DIR" ]; then
+if [[ ! -d "$SBT_PLUGINS_DIR" ]]; then
   mkdir -p "$SBT_PLUGINS_DIR"
 fi
 
-if [ ! -L "$SBT_PLUGINS_DIR/plugins.sbt"]; then
+if [[ ! -L "$SBT_PLUGINS_DIR/plugins.sbt" ]]; then
   ln -s ~/.dotfiles/.sbt/0.13/plugins/plugins.sbt "$SBT_PLUGINS_DIR/plugins.sbt"
 fi
 
@@ -146,8 +130,17 @@ fi
 bot "set iterm profile"
 echo -e "\033]50;SetProfile=ShaneProfile\a"
 
+bot "leave the home directory"
 popd > /dev/null 2>&1
 
 ./osx.sh
 
-bot "Woot! All done."
+bot "now it's time to set up your shell"
+read -r -p "Which shell would you like to use? [FISH|zsh]" response
+if [[ $response =~ ^(zsh|ZSH)$ ]]; then
+  ./install-zsh.sh
+else 
+  ./install-fish.sh
+fi  
+
+bot "Woot! All done. Restart your terminal app."

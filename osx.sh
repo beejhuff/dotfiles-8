@@ -14,6 +14,8 @@ if sudo grep -q "# %wheel\tALL=(ALL) NOPASSWD: ALL" "/etc/sudoers"; then
 
   # Keep-alive: update existing sudo time stamp until the script has finished
   while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+fi
+ok
 
 #####
 # install homebrew
@@ -68,6 +70,8 @@ require_brew moreutils
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed
 require_brew findutils
 require_brew dos2unix
+require_brew elixir
+require_brew fish
 require_brew fortune
 require_brew gawk
 require_brew git
@@ -75,6 +79,8 @@ require_brew gnupg
 # Install GNU `sed`, overwriting the built-in `sed`
 # so we can do "sed -i 's/foo/bar/' file" instead of "sed -i '' 's/foo/bar/' file"
 require_brew gnu-sed --default-names
+require_brew go
+require_brew gradle
 # better, more recent grep
 require_brew homebrew/dupes/grep
 require_brew httpie
@@ -85,6 +91,7 @@ require_brew nmap
 require_brew nvm
 require_brew ruby
 require_brew sbt
+require_brew scala
 require_brew thefuck
 require_brew tree
 # better, more recent vim
@@ -94,9 +101,6 @@ require_brew watch
 require_brew wget --enable-iri
 # update zsh to latest
 require_brew zsh
-# set zsh as the user login shell
-bot "setting newer homebrew zsh (/usr/local/bin/zsh) as your shell (password required)"
-chsh -s /usr/local/bin/zsh
 
 # nvm
 require_nvm 4.4.4
