@@ -32,6 +32,10 @@ alias ffs fuck
 
 alias g git
 
+alias gc "git commit"
+
+alias gs "git status"
+
 alias dos2lf 'dos2unix `find ./ -type f`'
 
 alias dnsflush 'dscacheutil -flushcache'
