@@ -31,3 +31,4 @@ omf install https://github.com/corevo/theme-pygmalion
 omf install thefuck
 omf install tab
 omf install sublime
+omf install https://github.com/oh-my-fish/plugin-functional
