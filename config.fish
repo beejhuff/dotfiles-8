@@ -31,12 +31,10 @@ omf theme lambda
 alias ffs fuck
 
 alias g git
-
 alias gc "git commit"
-
 alias gs "git status"
-
 alias gp "git push"
+alias gaa "git add ."
 
 alias dos2lf 'dos2unix `find ./ -type f`'
 
