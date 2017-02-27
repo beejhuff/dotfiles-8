@@ -39,3 +39,8 @@ alias gaa "git add ."
 alias dos2lf 'dos2unix `find ./ -type f`'
 
 alias dnsflush 'dscacheutil -flushcache'
+
+fish_vi_key_bindings
+
+function fish_mode_prompt
+end

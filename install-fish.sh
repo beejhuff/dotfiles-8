@@ -26,8 +26,7 @@ bin/install --offline
 
 popd > /dev/null 2>&1
 
-omf install lambda
-omf install https://github.com/corevo/theme-pygmalion
+omf install https://github.com/shanethehat/theme-lambda
 omf install thefuck
 omf install tab
 omf install sublime
