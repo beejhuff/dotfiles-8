@@ -36,6 +36,8 @@ alias gc "git commit"
 
 alias gs "git status"
 
+alias gp "git push"
+
 alias dos2lf 'dos2unix `find ./ -type f`'
 
 alias dnsflush 'dscacheutil -flushcache'
