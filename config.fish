@@ -37,6 +37,7 @@ alias gc "git commit"
 alias gs "git status"
 alias gp "git push"
 alias gaa "git add ."
+alias gd "git diff"
 
 alias dos2lf 'dos2unix `find ./ -type f`'
 
