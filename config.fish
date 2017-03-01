@@ -16,6 +16,8 @@ set -x PATH ~/apps/maven/apache-maven-3.2.5/bin $PATH
 
 set -x PATH ~/instantclient_12_1 $PATH
 
+set -x PATH ~/anaconda3/bin $PATH
+
 
 #set -x JAVA_HOME /Library/Java/Home
 #set -x JAVA_HOME /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home
