@@ -26,8 +26,12 @@ bin/install --offline
 
 popd > /dev/null 2>&1
 
+curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
+
 omf install https://github.com/shanethehat/theme-lambda
 omf install thefuck
 omf install tab
 omf install sublime
 omf install https://github.com/oh-my-fish/plugin-functional
+
+fisher get
