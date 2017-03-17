@@ -35,10 +35,7 @@ alias ffs fuck
 alias g git
 alias gc "git commit"
 alias gs "git status"
-function gp
-    set BRANCH = (git rev-parse --abbrev-ref HEAD)
-    git push origin $BRANCH
-end
+alias gp "git push origin HEAD"
 alias gaa "git add ."
 alias gd "git diff"
 alias gf "git fetch"
