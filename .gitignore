@@ -91,5 +91,5 @@ node_modules
 !.vim/bundle/Vundle.vim
 
 *.iml
-
+.idea
 !.sbt/
