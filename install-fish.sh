@@ -28,6 +28,7 @@ popd > /dev/null 2>&1
 
 curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
 
+omf install lambda
 omf install https://github.com/shanethehat/theme-lambda
 omf install thefuck
 omf install tab
