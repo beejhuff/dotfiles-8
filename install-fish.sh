@@ -28,11 +28,11 @@ popd > /dev/null 2>&1
 
 curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
 
-omf install lambda
-omf install https://github.com/shanethehat/theme-lambda
-omf install thefuck
-omf install tab
-omf install sublime
-omf install https://github.com/oh-my-fish/plugin-functional
+fish -c "omf install lambda"
+fish -c "omf install https://github.com/shanethehat/theme-lambda"
+fish -c "omf install thefuck"
+fish -c "omf install tab"
+fish -c "omf install sublime"
+fish -c "omf install https://github.com/oh-my-fish/plugin-functional"
 
-fisher get
+fish fisher get

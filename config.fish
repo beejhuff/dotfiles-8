@@ -28,8 +28,6 @@ set -x JAVA_HOME /Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home
 ### Ruby (rbenv) ###
 set -gx RBENV_ROOT /usr/local/var/rbenv
 
-omf theme lambda
-
 alias ffs fuck
 
 alias g git
