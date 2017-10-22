@@ -18,12 +18,9 @@ set -x PATH ~/instantclient_12_1 $PATH
 
 set -x PATH ~/anaconda3/bin $PATH
 
-
 set -x JAVA_HOME /Library/Java/Home
 #set -x JAVA_HOME /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home
 #set -x JAVA_HOME /Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home
-
-
 
 ### Ruby (rbenv) ###
 set -gx RBENV_ROOT /usr/local/var/rbenv
@@ -42,7 +39,13 @@ alias dos2lf 'dos2unix `find ./ -type f`'
 
 alias dnsflush 'dscacheutil -flushcache'
 
+alias sshconfig 'vi ~/.ssh/config'
+
 fish_vi_key_bindings
 
 function fish_mode_prompt
+end
+
+if test -e ~/.pw
+  source ~/.pw
 end
