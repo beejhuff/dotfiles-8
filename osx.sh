@@ -76,6 +76,7 @@ require_brew fortune
 require_brew gawk
 require_brew git
 require_brew gnupg
+require_brew imagesnap
 # Install GNU `sed`, overwriting the built-in `sed`
 # so we can do "sed -i 's/foo/bar/' file" instead of "sed -i '' 's/foo/bar/' file"
 require_brew gnu-sed --default-names
@@ -86,6 +87,8 @@ require_brew homebrew/dupes/grep
 require_brew httpie
 # jq is a JSON grep
 require_brew jq
+require_cask java
+require_brew jenv
 require_brew maven
 require_brew nmap
 require_brew nvm
@@ -132,6 +135,7 @@ require_cask gpgtools
 require_cask iterm2
 require_cask xquartz
 require_cask docker
+require_cask atom
 
 # Remove outdated versions from the cellar
 brew cleanup > /dev/null 2>&1

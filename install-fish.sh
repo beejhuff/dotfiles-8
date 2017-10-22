@@ -28,6 +28,8 @@ popd > /dev/null 2>&1
 
 curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
 
+cp /usr/local/Cellar/jenv/(brew list --versions | grep jenv | awk '{print $2}')/libexec/fish/jenv.fish ~/.config/fish/functions/jenv.fish
+
 fish -c "omf install lambda"
 fish -c "omf install https://github.com/shanethehat/theme-lambda"
 fish -c "omf install thefuck"

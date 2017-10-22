@@ -36,3 +36,6 @@ unsetopt correct
 fortune
 
 eval "$(thefuck --alias ffs)"
+
+echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.zshrc
+echo 'eval "$(jenv init -)"' >> ~/.zshrc
